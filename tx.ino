@@ -9,7 +9,8 @@
 // Create SX1262 instance
 SX1262 radio = new Module(NSS_PIN, DIO1_PIN, RESET_PIN, BUSY_PIN);
 
-unsigned long timeout = 5000; // 5-second timeout for acknowledgement
+unsigned long loopTimer = 1000;
+unsigned long timeout = 5000; // timeout for acknowledgement
 
 void setup() {
   Serial.begin(115200);
@@ -50,7 +51,7 @@ void loop() {
     Serial.println(state);
   }
 
-  delay(6000);  // Wait before sending the next message
+  delay(loopTimer); // Wait before sending the next message
 }
 
 bool waitForAck() {
