@@ -18,7 +18,7 @@ SX1262 radio = new Module(NSS_PIN, DIO1_PIN, RESET_PIN, BUSY_PIN);
 unsigned long startTime = 0;
 unsigned long timeout = 2000; // 2-second timeout for acknowledgement
 
-int messageCount = 0;
+// int messageCount = 0;
 
 void setup()
 {
@@ -63,8 +63,9 @@ void loop()
         }
         else
         {
-            String dbgMSg = "Received message: " + String(receivedMessage);
+            String dbgMSg = "Received: " + String(receivedMessage);
             serialPlusScreen(dbgMSg);
+            // delay(1000);
 
             ack("ack");
         }
@@ -74,8 +75,8 @@ void loop()
 void ack(const char *message)
 {
 
-    String dbgMSg = "Sending: " + String(message);
-    serialPlusScreen(dbgMSg);
+    // String dbgMSg = "Sending: " + String(message);
+    // serialPlusScreen(dbgMSg);
 
     int retries = 3; // Retry acknowledgement 3 times
     while (retries--)
@@ -89,7 +90,9 @@ void ack(const char *message)
             String ackResponse = rxWithTimeout();
             if (ackResponse == "ack")
             {
-                serialPlusScreen("Acknowledgement " + String(++messageCount) + " confirmed");
+                // serialPlusScreen("Acknowledgement confirmed");
+                delay(500);
+
                 return; // Exit after successful acknowledgement exchange
             }
             else

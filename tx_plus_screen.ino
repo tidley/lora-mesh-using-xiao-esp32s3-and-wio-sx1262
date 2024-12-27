@@ -55,7 +55,7 @@ void setup()
 
 void loop()
 {
-    const char *message = "Hello, SX1262!";
+    String message = "Hello times " + String(messageCount) + "!";
 
     String dbgMSg = "Sending message: " + String(message);
     serialPlusScreen(dbgMSg);
@@ -67,8 +67,9 @@ void loop()
         // Serial.println(F("Message sent successfully"));
         if (waitForAck())
         {
-            serialPlusScreen("Acknowledgement " + String(++messageCount) + " received - confirming");
+            serialPlusScreen("Acknowledgement " + String(messageCount) + " received - confirming");
             radio.transmit("ack");
+            messageCount++;
         }
         else
         {
